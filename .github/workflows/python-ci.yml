@@ -5,6 +5,7 @@ on:
 
 env:
   APP_NAME: GitHub-Actions-Practice
+  ENVIRONMENT: testing
 
 jobs:
   test:
@@ -22,8 +23,15 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Show environment variable
-        run: echo "Application: $APP_NAME"
+      - name: Show configuration
+        run: |
+          echo "Application: $APP_NAME"
+          echo "Environment: $ENVIRONMENT"
+
+      - name: Test GitHub Secret
+        run: echo "Secret is $MY_SECRET"
+        env:
+          MY_SECRET: ${{ secrets.MY_SECRET }}
 
       - name: Run tests
         run: pytest
